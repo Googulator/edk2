@@ -357,6 +357,14 @@
   MdeModulePkg/Bus/Scsi/ScsiDiskDxe/ScsiDiskDxe.inf
 
   #
+  # ATA/AHCI/NVMe Driver
+  #
+  OvmfPkg/SataControllerDxe/SataControllerDxe.inf
+  MdeModulePkg/Bus/Ata/AtaAtapiPassThru/AtaAtapiPassThru.inf
+  MdeModulePkg/Bus/Ata/AtaBusDxe/AtaBusDxe.inf
+  MdeModulePkg/Bus/Pci/NvmExpressDxe/NvmExpressDxe.inf
+
+  #
   # SMBIOS Support
   #
   MdeModulePkg/Universal/SmbiosDxe/SmbiosDxe.inf {
