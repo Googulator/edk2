@@ -49,7 +49,6 @@
   QemuFwCfgS3Lib|OvmfPkg/Library/QemuFwCfgS3Lib/BaseQemuFwCfgS3LibNull.inf
 
   ArmPlatformLib|ArmVirtPkg/Library/ArmQemuRelocatablePlatformLib/ArmQemuRelocatablePlatformLib.inf
-  ArmPlatformSysConfigLib|ArmPlatformPkg/Library/ArmPlatformSysConfigLibNull/ArmPlatformSysConfigLibNull.inf
 
   TimerLib|ArmPkg/Library/ArmArchTimerLib/ArmArchTimerLib.inf
   NorFlashPlatformLib|ArmVirtPkg/Library/NorFlashQemuLib/NorFlashQemuLib.inf
@@ -71,11 +70,6 @@
 
 [LibraryClasses.common.UEFI_DRIVER]
   UefiScsiLib|MdePkg/Library/UefiScsiLib/UefiScsiLib.inf
-
-[BuildOptions]
-  RVCT:*_*_ARM_PLATFORM_FLAGS == --cpu Cortex-A15 -I$(WORKSPACE)/ArmVirtPkg/Include
-  GCC:*_*_ARM_PLATFORM_FLAGS == -mcpu=cortex-a15 -I$(WORKSPACE)/ArmVirtPkg/Include
-  *_*_AARCH64_PLATFORM_FLAGS == -I$(WORKSPACE)/ArmVirtPkg/Include
 
 [BuildOptions.ARM.EDKII.SEC, BuildOptions.ARM.EDKII.BASE]
   # Avoid MOVT/MOVW instruction pairs in code that may end up in the PIE
@@ -253,6 +247,8 @@
   MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf {
     <LibraryClasses>
       NULL|MdeModulePkg/Library/VarCheckUefiLib/VarCheckUefiLib.inf
+      # don't use unaligned CopyMem () on the UEFI varstore NOR flash region
+      BaseMemoryLib|MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
   }
 !if $(SECURE_BOOT_ENABLE) == TRUE
   MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf {
